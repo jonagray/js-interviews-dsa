@@ -1,3 +1,3 @@
-# AlgoCasts
+# JavaScript Data Structures and Algorithms
 
-Companion repo to a course on Udemy.com
+Repo to learn data structures and algorithms/how to solve toy problems in javascript.
