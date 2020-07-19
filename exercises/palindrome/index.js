@@ -23,8 +23,17 @@
   // };
 
 // One-liner
+// function palindrome(str) {
+//   return str.split('').every((char, i) => char === str[str.length - i - 1]);
+// };
+
+// Practice (from memory)
 function palindrome(str) {
-  return str.split('').every((char, i) => char === str[str.length - i - 1]);
-};
+  let result = '';
+  for (let char of str) {
+    result = char + result;
+  }
+  return (result === str ? true : false);
+}
 
 module.exports = palindrome;
