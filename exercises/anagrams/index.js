@@ -8,29 +8,58 @@
 //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
 //   anagrams('Hi there', 'Bye there') --> False
 
-  function anagrams(stringA, stringB) {
-    const aCharMap = cleanMap(stringA);
-    const bCharMap = cleanMap(stringB);
 
-    if (Object.keys(aCharMap).length !== Object.keys(bCharMap).length) {
+
+
+function anagrams(stringA, stringB) {
+  let aCharMap = cleanString(stringA);
+  let bCharMap = cleanString(stringB);
+
+  if (Object.keys(aCharMap).length !== Object.keys(bCharMap).length) {
+    return false;
+  };
+
+  for (let char in aCharMap) {
+    if (aCharMap[char] !== bCharMap[char]) {
       return false;
-    };
-
-    for (let char in aCharMap) {
-      if (aCharMap[char] !== bCharMap[char]) {
-        return false;
-      }
-    };
-
-    return true;
+    }
   }
 
-  function cleanMap(str) {
-    let charMap = {};
-    for (let char of str.replace(/[^\w]/g).toLowerCase()) {
-      charMap[char] = charMap[char] + 1 || 1;
-    };
-    return charMap;
-  }
+  return true;
+};
+
+
+function cleanString(str) {
+  let charMap = {};
+  for (let char of str.replace(/[^\w]/g).toLowerCase()) {
+    charMap[char] = charMap[char] + 1 || 1;
+  };
+  return charMap;
+}
+
+  // function anagrams(stringA, stringB) {
+  //   const aCharMap = cleanMap(stringA);
+  //   const bCharMap = cleanMap(stringB);
+
+  //   if (Object.keys(aCharMap).length !== Object.keys(bCharMap).length) {
+  //     return false;
+  //   };
+
+  //   for (let char in aCharMap) {
+  //     if (aCharMap[char] !== bCharMap[char]) {
+  //       return false;
+  //     }
+  //   };
+
+  //   return true;
+  // }
+
+  // function cleanMap(str) {
+  //   let charMap = {};
+  //   for (let char of str.replace(/[^\w]/g).toLowerCase()) {
+  //     charMap[char] = charMap[char] + 1 || 1;
+  //   };
+  //   return charMap;
+  // }
 
 module.exports = anagrams;

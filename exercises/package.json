@@ -10,5 +10,8 @@
     "testEnvironment": "node"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "word-check": "^1.0.2"
+  }
 }
