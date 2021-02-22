@@ -14,30 +14,35 @@ function formattedNumWords(n) {
   let storageArrThree = [];
   let storageArrFour = [];
   let storageArrSeven = [];
+  let finalStorage = [];
 
-  // console.log(phoneNum)
-  // console.log(phoneNum.slice(0, phoneNum.length - 4))
-  // console.log(viableFourDigitWords);
-  // console.log(viableThreeDigitWords);
-
-    // Loop through the three-digit viable words and concat with the digits of the original number (excluding first three)
-    for (let i = 0; i < viableThreeDigitWords.length; i++) {
-      storageArrThree.push(`${phoneNum.slice(0, phoneNum.length - 7)}-${viableThreeDigitWords[i]}-${phoneNum.slice(phoneNum.length - 4)}`);
-    }
-
-  // Loop through the viable words and concat with the digits of the original number (excluding last 4)
-  for (let i = 0; i < viableFourDigitWords.length; i++) {
-    storageArrFour.push(`${phoneNum.slice(0, phoneNum.length - 7)}-${phoneNum.slice(phoneNum.length - 7, phoneNum.length - 4)}-${viableFourDigitWords[i]}`);
-  }
+    // Get original phone number into final array
+    storageArr.push(phoneNum);
 
     // Loop through the viable words and concat with the digits of the original number (excluding last 7)
     for (let i = 0; i < viableSevenDigitWords.length; i++) {
-      storageArrSeven.push(`${phoneNum.slice(0, phoneNum.length - 7)}-${viableSevenDigitWords[i]}`);
+      if (storageArr.length < 6) {
+        storageArr.push(`${phoneNum.slice(0, phoneNum.length - 7)}-${viableSevenDigitWords[i]}`);
+      }
+    }
+    
+    // Loop through the viable words and concat with the digits of the original number (excluding last 4)
+    for (let i = 0; i < viableFourDigitWords.length; i++) {
+      if (storageArr.length < 6) {
+        storageArr.push(`${phoneNum.slice(0, phoneNum.length - 7)}-${phoneNum.slice(phoneNum.length - 7, phoneNum.length - 4)}-${viableFourDigitWords[i]}`);
+      }
+    }
+
+    // Loop through the three-digit viable words and concat with the digits of the original number (excluding first three)
+    for (let i = 0; i < viableThreeDigitWords.length; i++) {
+      if (storageArr.length < 6) {
+        storageArr.push(`${phoneNum.slice(0, phoneNum.length - 7)}-${viableThreeDigitWords[i]}-${phoneNum.slice(phoneNum.length - 4)}`);
+      }
     }
 
   // Combine arrays
-  storageArr.push(storageArrThree, storageArrFour, storageArrSeven);
-
+  // storageArr.push(storageArrSeven, storageArrFour, storageArrThree);
+  console.log(storageArr);
   return storageArr; // Need to combine all the different arrays with options in them
 }
 
