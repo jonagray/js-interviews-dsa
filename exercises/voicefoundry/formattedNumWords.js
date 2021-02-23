@@ -1,8 +1,9 @@
 const validateInput = require('./validation');
 const wordCheck = require('./index');
+const hashEverything = require('./final');
 
 function formattedNumWords(n) {
-  let numArr = validateInput(n); // This will create a variable arr with the phone number input, formatted to have the 4 nums
+  let numArr = validateInput(n); // This will create a variable arr with the phone number input, formatted to have the 4 series' of the same original phone number
   let phoneNum = numArr[0]; // get the original number
   let firstThreeDigits = numArr[3]; // This will grab the string of the first three digits
   let lastFourDigits = numArr[2]; // This will grab the string of the last 4 digits
