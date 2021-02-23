@@ -1,6 +1,8 @@
 const wordCheck = require('./index');
 const validateInput = require('./validation');
 const formattedNumWords = require('./formattedNumWords');
+const iterativeWordCheck = require('./iterative');
+const hashEverything = require('./iterative');
 
 test('wordCheck function exists', () => {
   expect(wordCheck).toBeDefined();
@@ -56,13 +58,26 @@ test('validateInput can remove all special characters from a string input', () =
 //   expect(formattedNumWords("2533569377")[0]).toEqual([ '253-flowers' ]);
 // });
 
-test('formattedNumWords - works for three and four digit word combinations together', () => {
-  expect(formattedNumWords("2533282355")).toEqual([
-    '2533282355',
-    '253-328-bell',
-    '253-328-cell',
-    '253-eat-2355',
-    '253-eau-2355',
-    '253-ecu-2355'
-  ]);
+// test('formattedNumWords - works for three and four digit word combinations together', () => {
+//   expect(formattedNumWords("2533282355")).toEqual([
+//     '2533282355',
+//     '253-328-bell',
+//     '253-328-cell',
+//     '253-eat-2355',
+//     '253-eau-2355',
+//     '253-ecu-2355'
+//   ]);
+// });
+
+test('iterativeWordCheck speed test', () => {
+  // expect(hashEverything()).toEqual([ 'belk', 'bell', 'cell' ]);
+  expect(hashEverything()).toEqual([ 'flowers' ]);
+
+  // expect(wordCheck("3569377")).toEqual([ 'flowers' ]); // 25 secs
 });
+
+// test('iterativeWordCheck speed test', () => {
+//   expect(iterativeWordCheck()).toEqual([ 'flowers' ]);
+  
+//   // expect(wordCheck("3569377")).toEqual([ 'flowers' ]); // 25 secs
+// });
