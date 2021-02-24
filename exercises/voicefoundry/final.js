@@ -42,6 +42,7 @@ function letterCombinations(n) { //input=('(206) 438-2274')
     return result;
   }
 
+  let input = n[0];
   // Create unique map based on the digits - n[1] will be full 7 digits in a string
   let phoneNum = n[0]; // get the original number
   let firstThreeDigits = n[3]; // This will grab the string of the first three digits
@@ -49,10 +50,10 @@ function letterCombinations(n) { //input=('(206) 438-2274')
   let mainSeven = n[1]; // This will grab the full seven digit string
 
   // make a copy of the mainseven variable and split it into an array of separated chars
-      // Then loop through and turn str chars back into numbers
-      // Use this array of numbers to create the unique map needed - an array of arrays
-  
-  let uniqueMap = mainSeven.split('').map(x => + x); // output = [4, 3, 8, 2, 2, 7, 4 ]
+  // Then loop through and turn str chars back into numbers
+  // Use this array of numbers to create the unique map needed - an array of arrays
+
+  let uniqueMap = input.split('').map(x => + x); // output = [4, 3, 8, 2, 2, 7, 4 ]
 
   // Loop over uniqueMap and create digits array of arrays
   for (let i = 0; i < uniqueMap.length; i++) {
@@ -80,7 +81,7 @@ function validateInput(n) {
   let lastFour = stringified.slice(stringified.length - 4);
   storage.push(lastFour);
 
-  let firstThree = stringified.slice(stringified.length - 7).slice(0,3);
+  let firstThree = stringified.slice(stringified.length - 7).slice(0, 3);
   storage.push(firstThree);
 
   return storage;
@@ -167,6 +168,7 @@ HashTable.prototype.contains = function (key) {
 
 function wordsMatching(n) { // Input is basic phone number => call the function that will turn into array of arrays
   let digits = letterCombinations(n)
+  // console.log(digits)
   // outer loop is for each digit in the number, inner loop is the letter possibilities for the digit you're on
   // I want an array of the different digits you can get from the input
   let result = digits[0];
@@ -179,7 +181,7 @@ function wordsMatching(n) { // Input is basic phone number => call the function 
       // create map with letter appended to end
       subresult = subresult.concat(result.map(str => str + letters[j]));
     }
-    
+
     result = subresult;
   }
   return result;
@@ -196,21 +198,86 @@ function hashEverything(n) { // Call this function with => ('(206) 438-2274')
       newHashtable.add(`${key}`, `${data[key]}`)
     }
   }
-  
+
   for (let i = 0; i < storage.length; i++) {
     if (newHashtable.get(storage[i]) !== null) {
       boof.push(storage[i]);
     }
   }
-  console.log(boof);
   return boof;
 }
 
-hashEverything('2062845337');
+// function getRekt(n) {
+//   let gob = validateInput(n);
+//   let oof = [];
+//   for (let i = 1; i < gob.length; i++) {
+//     oof.push(hashEverything(gob[i]))
+//   }
+//   return console.log(oof, gob[0]);
+// }
+
+// // getRekt('2066973736')
+// // getRekt('2063569377')
+// getRekt('253285337')
+// boog(['226', '234'])
+// hashEverything('226');
 // hashEverything('(206) 356-9377'); // Output will get you the array of arrays with phone number digits
 
+function formattedNumWords(n) {
+  let numArr = validateInput(n);
+  let phoneNum = numArr[0]; // get the original number
+  let tempArr = [];
 
+  // console.log(numArr)
+  // console.log(phoneNum)
 
-// Make a master function that can do multiple versions of the algorithm for 3 and 4 letter words as well
+  for (let i = 1; i < numArr.length; i++) {
+    tempArr.push(hashEverything(numArr[i]))
+  }
+  // console.log(tempArr)
 
-// modules.export = hashEverything;
+  let viableThreeDigitWords = tempArr[2]; // This will grab the string of the first three digits
+  let viableFourDigitWords = tempArr[1]; // This will grab the string of the last 4 digits
+  let viableSevenDigitWords = tempArr[0]; // This will grab the full seven digit string
+
+  let storageArr = [];
+
+  // Get original phone number into final array
+  storageArr.push(phoneNum);
+
+  // Loop through the viable words and concat with the digits of the original number (excluding last 7)
+  if (viableSevenDigitWords) {
+    for (let i = 0; i < viableSevenDigitWords.length; i++) {
+      if (storageArr.length < 6) {
+        storageArr.push(`${phoneNum.slice(0, phoneNum.length - 6)}-${viableSevenDigitWords[i]}`);
+      }
+    }
+  }
+
+  // Loop through the viable words and concat with the digits of the original number (excluding last 4)
+  if (viableFourDigitWords) {
+    for (let i = 0; i < viableFourDigitWords.length; i++) {
+      if (storageArr.length < 6) {
+        storageArr.push(`${phoneNum.slice(0, phoneNum.length - 6)}-${phoneNum.slice(phoneNum.length - 7, phoneNum.length - 4)}-${viableFourDigitWords[i]}`);
+      }
+    }
+  }
+
+  // Loop through the three-digit viable words and concat with the digits of the original number (excluding first three)
+  if (viableThreeDigitWords) {
+    for (let i = 0; i < viableThreeDigitWords.length; i++) {
+      if (storageArr.length < 6) {
+        storageArr.push(`${phoneNum.slice(0, phoneNum.length - 6)}-${viableThreeDigitWords[i]}-${phoneNum.slice(phoneNum.length - 4)}`);
+      }
+    }
+  }
+
+  // Combine arrays
+  // storageArr.push(storageArrSeven, storageArrFour, storageArrThree);
+  // console.log(viableThreeDigitWords, "booooooooooooork!!");
+  return console.log(storageArr);
+  // return storageArr; // Need to combine all the different arrays with options in them
+}
+
+// formattedNumWords('253285337');
+formattedNumWords('2532266253');
